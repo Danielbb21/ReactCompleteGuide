@@ -15,6 +15,7 @@ export default function ExpenseDate(props) {
         'November',
         'December'];
 
+
     const month = mounthsOfYear[props.date.getMonth()];
     const year = props.date.getFullYear();
     const day = props.date.getDate();
