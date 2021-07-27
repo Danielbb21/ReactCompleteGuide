@@ -30,14 +30,16 @@ const App = () => {
     date: new Date(2021, 6, 26),
   },
   ]
-
+  const handleSaveExpense = (expenseSaved) =>{
+    // const newExpensesArray =  [{...expenses, expenseSaved}];
+    // expenses.push(expenseSaved);
+     console.log(expenseSaved);
+    //  return expenses
+  }
 
   return (
     <div>
-
-      <h2>Let's get started!</h2>
-      <p>This is also visible</p>
-      <NewExpense/>
+      <NewExpense onSaveExpense={handleSaveExpense}/>
       <DisplayingExpense expenses={expenses} />
     </div>
   );
