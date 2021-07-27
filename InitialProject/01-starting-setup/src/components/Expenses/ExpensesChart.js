@@ -1,4 +1,3 @@
-import { PROPERTY_TYPES } from '@babel/types';
 import React from 'react';
 import Chart from '../Chart/Chart';
 
