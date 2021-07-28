@@ -1,0 +1,24 @@
+.teste {
+  margin: auto;
+  width: 50%;
+  margin-top: 100px;
+  padding-bottom: 10px;
+}
+.teste  label {
+  display: block;
+  padding: 10px;
+}
+
+.teste  input {
+  width: 100%;
+  font: inherit;
+  display: block;
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+.teste  input:focus {
+  outline: none;
+  border-color: #4f005f;
+}

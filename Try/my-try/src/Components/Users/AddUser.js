@@ -1,49 +1,71 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import Button from '../UI/Button';
 import Card from '../UI/Card';
+import ErrorModal from '../UI/ErrorModal';
+import style from './AddUSer.module.css';
 
 const AddUser = (props) => {
 
-    const Form = styled.form`
-        margin: auto;
-        width: 50%;
-        margin-top: 100px;
-        padding-bottom: 10px;
-
-        & label{
-           
-            display: block;
-            padding: 10px;
-        }
-
-        & input{
-            font: inherit;
-            display: block;
-            width: 50%;
-            border: 1px solid #ccc;
-            padding: 0.15rem;
-            margin-bottom:0.5rem;
-        }
-        & input:focus{
-            outline: none;
-            border-color: #4f005f;
-        }
-    `;
+    const [hasError, setHasError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [username, setUsername] = useState('');
+    const [age, setAge] = useState('');
     const addUserHandler = (event) => {
         event.preventDefault();
-        console.log('teste');
+        let emptyField = verifyFields(username, age);
+        if (emptyField) {
+            setHasError(true);
+            setErrorMessage('you not insert  all the filds');
+            
+            return;
+        }
+        if (+age < 1) {
+            setHasError(true);
+            setErrorMessage('Invalid age format');
+            return;
+        }
+        const user = {
+            name: username,
+            age: age
+        }
+        props.onSaveUser(user)
+        setUsername('');
+        setAge('');
+    }
+    const changeUsername = (event) => {
+        setUsername(event.target.value);
+
+    }
+    const changeAge = (event) => {
+        setAge(event.target.value);
+    }
+    const verifyFields = (...args) => {
+
+        let result = args.some((element) => {
+            return element.trim().length < 1;
+        })
+        return result;
+    }
+    const handleError =(error) =>{
+        setHasError(error)
     }
     return (
-        <Card>
-            <Form onSubmit={addUserHandler}>
-                <label htmlFor="username">Username</label>
-                <input id="username" type="text" />
-                <label htmlFor="age">Age(Years)</label>
-                <input id="age" type="number" />
-                <Button type="submit">Add User</Button>
-            </Form>
-        </Card>
+        <div>
+            {hasError ?  <ErrorModal title="sommeting went worng" message= {errorMessage} onError = {handleError}/> : ''}
+           
+            <Card>
+                <form className={style.teste} onSubmit={addUserHandler}>
+
+                    <label htmlFor="username">Username</label>
+                    <input value={username} id="username" type="text" onChange={changeUsername} />
+                    <label htmlFor="age">Age(Years)</label>
+                    <input value={age} id="age" type="number" onChange={changeAge} />
+                    <Button type="submit">Add User</Button>
+
+                </form>
+
+            </Card>
+        </div>
     );
 }
 

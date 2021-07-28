@@ -10,7 +10,7 @@ const ButtonWrap = styled.button`
 const Button = (props) =>{
     console.log(props);
     return(
-        <ButtonWrap type = {props.type}>{props.children}</ButtonWrap>
+        <button type = {props.type|| 'button'} onClick={props.onClick}>{props.children}</button>
     )
 }
 
