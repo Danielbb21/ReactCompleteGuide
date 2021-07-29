@@ -2,8 +2,11 @@ import CartIcon from "../Cart/CartIcon";
 import styles from './HeaderCartButton.module.css'
 
 const HeadeCartButton = props => {
+    const onHanclerShowCart = () =>{
+        props.onShowCart();
+    }
     return (
-        <button className = {styles.button}>
+        <button  onClick = {onHanclerShowCart}className = {styles.button}>
             <span className = {styles.icon}>
                 <CartIcon />
             </span>

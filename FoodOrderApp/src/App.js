@@ -1,11 +1,28 @@
+import { useState } from "react";
+import Cart from "./Components/Cart/Cart";
+
 import Header from "./Components/Layout/Header";
 import Meal from "./Components/Meals/Meals";
-import MealSumary from "./Components/Meals/MealsSumary";
+
 
 function App() {
+  const [cartIsShow, setCartIsShow] = useState(false);
+
+  const showCartHandler = () =>{
+    setCartIsShow(true);
+  }
+
+  const hideCartHandler = () =>{
+    setCartIsShow(false);
+  }
+
+  
+
   return (
     <>
-      <Header />
+
+      {cartIsShow &&<Cart onCloseCard = {hideCartHandler}/>}
+      <Header onCardShow = {showCartHandler}/>
       <main>
         <Meal />
       </main>
