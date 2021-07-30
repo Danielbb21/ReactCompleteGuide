@@ -56,12 +56,13 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeal = () => {
+  
     return (
         <AvaibleWrapper>
             <Card>
                 <ul>
                     {DUMMY_MEALS.map(meal => {
-                        return <MealItem key={meal.id} name={meal.name} price={meal.price} info={meal.description} />
+                        return <MealItem id= {meal.id}key={meal.id} name={meal.name} price={meal.price} info={meal.description} />
                     })}
                 </ul>
             </Card>
