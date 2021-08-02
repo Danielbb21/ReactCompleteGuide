@@ -14,6 +14,7 @@ const useForm = (validateValue) => {
     };
 
     const reset = () =>{
+        console.log('value', enteredValue);
         setEnteredValue('');
         setIsTouched(false);
     }
