@@ -1,8 +1,10 @@
+import FormMeal from '../Form/FormMeal';
 import classes from './MealsSummary.module.css';
 
 const MealsSummary = () => {
   return (
     <section className={classes.summary}>
+      <FormMeal />
       <h2>Delicious Food, Delivered To You</h2>
       <p>
         Choose your favorite meal from our broad selection of available meals

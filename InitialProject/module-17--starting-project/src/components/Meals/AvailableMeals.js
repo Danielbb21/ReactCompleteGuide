@@ -19,7 +19,7 @@ const AvailableMeals = () => {
         throw new Error('Sommeting went Wrong');
       }
       const data = await response.json();
-      setIsLoadding(false);
+      
       
       const meals = [];
       for (var meal in data) {
@@ -33,6 +33,7 @@ const AvailableMeals = () => {
       }
 
       setFood(meals);
+      setIsLoadding(false);
     }
     catch (err) {
       setIsLoadding(false);
@@ -40,6 +41,7 @@ const AvailableMeals = () => {
       setHasError(true);
     }
   }, []);
+
   useEffect(() => {
     fetchMeals();
   }, [fetchMeals]);
