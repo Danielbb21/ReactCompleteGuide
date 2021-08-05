@@ -1,4 +1,7 @@
 import { useState, useRef, useReducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginActions } from '../../store/loginSlice';
+import { useHistory } from 'react-router-dom';
 
 import classes from './AuthForm.module.css';
 
@@ -44,6 +47,12 @@ const reducer = (state, action) => {
   return initialState;
 }
 const AuthForm = () => {
+  const history = useHistory();
+
+  const isLogIn = useSelector(state => state.log.isLogged);
+  const token = useSelector(state => state.log.token);
+  const dispatchLogData = useDispatch();
+
   const [isLogin, setIsLogin] = useState(true);
   const [state, dispatch] = useReducer(reducer, initialState);
   const emailInputRef = useRef();
@@ -81,11 +90,16 @@ const AuthForm = () => {
         }
         else {
           return res.json().then(data => {
-            return data.error.message
-            // dispatch({ type: 'SETERROR', message: data.error.message });
+
+            throw new Error(data.error.message);
           })
         }
-      }).then(data => { console.log(data) }).catch(err => {
+      }).then(data => {
+        const expirationTime = new Date((new Date().getTime()) + (+ data.expiresIn * 1000));
+        dispatchLogData(loginActions.logIn({ token: data.idToken, reamingTime: expirationTime.toString() }));
+        history.replace('/');
+
+      }).catch(err => {
         dispatch({ type: 'SETERROR', message: err.message });
         console.log(err);
       });
@@ -120,7 +134,7 @@ const AuthForm = () => {
             if (position !== -1) {
               errorMessage = data.error.message.slice(position + 1);
             }
-            // dispatch({ type: 'SETERROR', message: errorMessage });
+
             throw new Error(errorMessage);
           });
         }

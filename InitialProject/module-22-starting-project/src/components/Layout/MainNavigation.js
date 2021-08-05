@@ -1,8 +1,20 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loginActions } from '../../store/loginSlice';
+// import { useHistory } from 'react-router-dom';
 
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
+  const isLogIn = useSelector(state => state.log.isLogged);
+  const dispatch = useDispatch();
+  // const history = useHistory();
+
+  const logoutUserHandler = () => {
+    dispatch(loginActions.logOut());
+    // history.replace('/auth');
+  };
+
   return (
     <header className={classes.header}>
       <Link to='/'>
@@ -10,15 +22,16 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
-          <li>
-            <Link to='/auth'>Login</Link>
-          </li>
-          <li>
-            <Link to='/profile'>Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+
+          {!isLogIn &&
+            <li>
+              <Link to='/auth'>Login</Link>
+            </li>
+          }
+          {isLogIn && <li><Link to='/profile'>Profile</Link></li>}
+
+          {isLogIn && <li><button onClick={logoutUserHandler}>Logout</button></li>}
+
         </ul>
       </nav>
     </header>
