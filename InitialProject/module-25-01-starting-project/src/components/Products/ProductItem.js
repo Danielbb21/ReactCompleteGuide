@@ -6,7 +6,7 @@ import './ProductItem.css';
 import { toggleFav } from '../../store/actions/products';
 // import { ProductContext } from '../../context/products-context';
 
-const ProductItem = React.memo(props => {
+const ProductItem =  React.memo(props => {
 
   const dispatch = useStore(false)[1];
 
